@@ -12,7 +12,7 @@
                     <a href="/posts/{{ $post->id }}/edit">Edit</a>
                     <a href="/posts/{{ $post->id }}/destroy">Delete</a>
                 </div>
-                <form action="/post/{{$post->destroy}}" method="POST">
+                <form action="/posts/{{$post->id}}/destroy" method="POST">
                     @csrf
                     @method('DELETE')
                     
