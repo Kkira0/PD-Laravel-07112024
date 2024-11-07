@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.index');
+        return view('posts.index', ['allPosts' => $posts]);
     }
 
     /**
@@ -31,7 +31,8 @@ class PostController extends Controller
     {
         $data = [
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
+            'published_at'=>$request->published_at
         ];
 
         Post::create($data);
@@ -42,8 +43,16 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
-    {
+    public function show(Request $request, $id)
+    {   
+        $post = Post::find($id);
+
+        $data = [
+            'title' => $request->title,
+            'content' => $request->content,
+            'published_at'=>$request->published_at
+        ];
+
         return view('posts.show', ['post' => $post]);
     }
     
@@ -65,7 +74,8 @@ class PostController extends Controller
 
         $data = [
             'title' => $request->title,
-            'content' => $request->content
+            'content' => $request->content,
+            'published_at'=>$request->published_at
         ];
 
         $post->update($data);
@@ -81,5 +91,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->delete();
         return redirect('/posts');
-    }    
+    }
+    
+    
 }
